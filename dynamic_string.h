@@ -15,6 +15,7 @@ public:
     dynamic_string()
     {
         this->str = new char[1];
+        this->str[0] = '\0';
         this->size = 0;
     };
 
@@ -81,6 +82,10 @@ public:
     // Переопределение оператора присваивания
     dynamic_string & operator = (const dynamic_string & other)
     {
+        if (this == &other) {
+            return *this;
+        }
+
         delete [] this->str;
 
         this->size = other.size;
@@ -107,6 +112,11 @@ public:
 
     // Переопределение оператора сложения (внешняя функция)
     dynamic_string operator + (const dynamic_string & other);
+
+    // Оператор []
+    char & operator [] (int index) {
+        return this->str[index];
+    }
 
     // Функция сравнения двух динамических строк
     int compareTo(const dynamic_string & other)
